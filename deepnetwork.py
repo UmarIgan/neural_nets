@@ -3,9 +3,9 @@ class deepnetwork(object):
     def __init__(self, x, y):
         self.x=x
         self.y=y
-        self.W1=np.zeros(700,)#shape of weigths must match with shape of y
-        self.W2=np.zeros(700,)
-        self.W3=np.zeros(700,)
+        self.W1=np.zeros(y.shape)#shape of weigths must match with shape of y
+        self.W2=np.zeros(y.shape)
+        self.W3=np.zeros(y.shape)
         
         
     #FORWARD WİTH 2 HİDDEN LAYERS
@@ -18,7 +18,7 @@ class deepnetwork(object):
         it is better set it as 0.
         """
         self.l1=self.relu(np.dot(self.W1, self.x) + bias)#you can change the activation function parameters to find best loss
-        self.l2=self.relu(np.dot(self.W2, self.l1) + bias)
+        self.l2=self.relu(np.dot(self.W2, self.l1) + bias)#Please change activation to find best for you
         o=np.dot(self.W3, self.l2) + bias
         return o
   
@@ -55,17 +55,10 @@ class deepnetwork(object):
         self.W2 += np.dot(self.l1.T, self.z3_delta) 
         self.W3 += np.dot(self.l2.T, self.o_delta)
     
-    def train(self, x, y):
-        pred = self.forward(x, 0.9)
-        self.backward(x, y, pred)
-
-
-x=abs(np.random.randn(700, 700))#we set our x's shape as square shape and y must have same dimension.
-y=abs(np.random.randn(700,))          
-dd=deepnetwork(x, y)
-epochs=20 #to set the best epoch number you should find by try. As i understand for this algorithm it is about size of data
-for i in range(epochs):
-    loss=dd.loss_func(y)
-    print("loss function:  ", loss)
-    print("cross entropy loss: ", dd.cross_ent_coss(y))
-    dd.train(x, y)
+    def train(self, x, y, epochs):
+        self.epochs=epochs
+        for epoch in range(epochs):
+            pred = self.forward(x, 0.9)
+            self.backward(x, y, pred)
+            loss=self.loss_func(y)
+            print("accuracy", loss)
