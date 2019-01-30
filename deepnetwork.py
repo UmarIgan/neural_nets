@@ -18,7 +18,7 @@ class deepnetwork(object):
         it is better set it as 0.
         """
         self.l1=self.relu(np.dot(self.W1, self.x) + bias)#you can change the activation function parameters to find best loss
-        self.l2=self.relu(np.dot(self.W2, self.l1) + bias)#Please change activation to find best for you
+        self.l2=self.tanh(np.dot(self.W2, self.l1) + bias)#Please change activation to find best for you
         o=np.dot(self.W3, self.l2) + bias
         return o
   
