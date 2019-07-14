@@ -55,7 +55,7 @@ class deepnetwork(object):
         self.W2 += np.dot(self.l1.T, self.z3_delta) 
         self.W3 += np.dot(self.l2.T, self.o_delta)*self.learning_rate
     
-    def train(self, x, y, epochs):
+    def train(self, x, y, epochs=10):
         self.epochs=epochs
         for epoch in range(epochs):
             pred = self.forward(x, 0.9)
