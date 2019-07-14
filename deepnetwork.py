@@ -61,4 +61,4 @@ class deepnetwork(object):
             pred = self.forward(x, 0.9)
             self.backward(x, y, o)
             loss=self.loss_func(y)
-            print(f” accuracy at epoch {epoch} is %{100-loss})
+            print(f” accuracy at epoch {epoch} is %{100-loss}”)
